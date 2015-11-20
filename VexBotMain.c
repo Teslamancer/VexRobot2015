@@ -71,15 +71,15 @@ task usercontrol()
 }
 
 //Input Manager
-bool getButton(int x){
+/*bool getButton(int x){
 	return vexRT[x];
-}
+}*/
 
-int getJoystickValue(int x){
+/*int getJoystickValue(int x){
 	if(true)//will check for joystick values to be legit, otherwise don't run{
 	return vexRT[x];
 }
-}
+}*/
 
 int rampITUP(int x){
 
