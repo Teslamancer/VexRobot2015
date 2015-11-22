@@ -71,13 +71,19 @@ task usercontrol()
 }
 
 //Input Manager
-bool getButton(int x){
-	return vexRT[x];
+bool getButton(TVexJoysticks button){
+	bool isPressed;
+	if(vexRT[button]==1){
+		isPressed=true;
+}else{
+		isPressed=false;
+}
+	return isPressed;
 }
 
-int getJoystickValue(int x){
-	if(true)//will check for joystick values to be legit, otherwise don't run{
-	return vexRT[x];
+short getJoystickValue(TVexJoysticks joystick){
+	if(-127<=vexRT[joystick]<=127){//will check for joystick values to be legit, otherwise don't run
+	return vexRT[joystick];
 }
 }
 
