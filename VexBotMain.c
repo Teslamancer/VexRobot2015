@@ -59,7 +59,7 @@ task usercontrol()
 
 	while (true)
 	{
-		driveMec(getAxisValue());
+		driveMec(rampITUP(getAxisValue()));
 	  // This is the main execution loop for the user control program. Each time through the loop
 	  // your program should update motor + servo values based on feedback from the joysticks.
 
@@ -87,8 +87,8 @@ short getJoystickValue(TVexJoysticks joystick){
 	return vexRT[joystick];
 }
 }
-static double[] getAxisValue(){
-	static double[] axis= new double [3];
+static float getAxisValue(){
+	static float axis[2];
 
 	axis[0] = getJoystickValue(joystick);
 	axis[1] = getJoystickValue(joystick);
@@ -96,13 +96,15 @@ static double[] getAxisValue(){
 	return axis;
 }
 //yolo hope this works
-/*
-int rampITUP(short x){
-	short Y=0;
-	Y=((x^3)/16129)*((x)/(short)abs(x));
+
+float rampITUP(short x[2]){
+	float Y[2]={0,0,0};
+	for(int i=0;i<3;i++){
+	Y[i]=((x[i]^3)/16129)*((x[i])/abs(x[i]));
+}
 	return Y;
 }
-*/
+
 
 int driv[3];
 
