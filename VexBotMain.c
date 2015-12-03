@@ -6,7 +6,7 @@
 #pragma userControlDuration(120)
 
 #include "Vex_Competition_Includes.c"   //Main competition background code...do not modify!
-
+#include Math;
 /////////////////////////////////////////////////////////////////////////////////////////
 //
 //                          Pre-Autonomous Functions
@@ -59,6 +59,7 @@ task usercontrol()
 
 	while (true)
 	{
+		driveMec(getAxisValue());
 	  // This is the main execution loop for the user control program. Each time through the loop
 	  // your program should update motor + servo values based on feedback from the joysticks.
 
@@ -86,7 +87,40 @@ short getJoystickValue(TVexJoysticks joystick){
 	return vexRT[joystick];
 }
 }
+static double[] getAxisValue(){
+	static double[] axis= new double [3];
 
-int rampITUP(int x){
-
+	axis[0] = getJoystickValue(joystick);
+	axis[1] = getJoystickValue(joystick);
+	axis[2] = getJoystickValue(joystick);
+	return axis;
 }
+//yolo hope this works
+/*
+int rampITUP(short x){
+	short Y=0;
+	Y=((x^3)/16129)*((x)/(short)abs(x));
+	return Y;
+}
+*/
+void driveMec(double[] driv){
+	finaldrv(driv);
+
+	motor[port1]=(drv[0]);
+	motor[port2]=(drv[1]);
+	motor[port3]=(drv[2]);
+	motor[port4]=(drv[3]);
+}
+
+
+//assumes motor ports
+short[] finaldrv(short[] driv){
+	short[] drv = new short[4];
+	drv[0] = (driv[0] *.75) - (driv[1]*.75) + (driv[2]);
+	drv[1] = ((driv[0] *.75) + driv[1]*.75 + (driv[2]));
+	drv[2] = -(driv[0] *.75) + (driv[1]*.75) + (driv[2]);
+	drv[3] = (-(driv[0] *.75) - (driv[1]*.75) + (driv[2]));
+
+	return drv;
+}
+
