@@ -103,19 +103,22 @@ int rampITUP(short x){
 	return Y;
 }
 */
+
+int driv[3];
+
 void driveMec(double[] driv){
 	finaldrv(driv);
 
-	motor[port1]=(drv[0]);
-	motor[port2]=(drv[1]);
-	motor[port3]=(drv[2]);
-	motor[port4]=(drv[3]);
+	motor[port1]=(driv[0]);
+	motor[port2]=(driv[1]);
+	motor[port3]=(driv[2]);
+	motor[port4]=(driv[3]);
 }
 
 
 //assumes motor ports
-short[] finaldrv(short[] driv){
-	short[] drv = new short[4];
+short[] finaldrv(short driv[]){
+	short drv[3];
 	drv[0] = (driv[0] *.75) - (driv[1]*.75) + (driv[2]);
 	drv[1] = ((driv[0] *.75) + driv[1]*.75 + (driv[2]));
 	drv[2] = -(driv[0] *.75) + (driv[1]*.75) + (driv[2]);
@@ -123,4 +126,3 @@ short[] finaldrv(short[] driv){
 
 	return drv;
 }
-
