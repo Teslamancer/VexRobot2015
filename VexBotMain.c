@@ -71,8 +71,66 @@ task usercontrol()
 	}
 }
 
-//Input Manager
-<<<<<<< HEAD
+
+float rampITUP(short x[2]){
+	float Y[2]={0,0,0};
+	for(int i=0;i<3;i++){
+	Y[i]=((x[i]^3)/16129)*((x[i])/abs(x[i]));
+}
+	return Y;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+//
+//                              Motor Control
+//
+////////////////////////////////////////////////////////////////////////////////
+
+//assumes motor ports
+short[] finaldrv(short driv[]){
+	short drv[3];
+@@ -128,3 +106,56 @@ short[] finaldrv(short driv[]){
+
+	return drv;
+}
+
+void driveMec(double[] driv){
+	finaldrv(driv);
+
+	motor[port1]=(driv[0]);
+	motor[port2]=(driv[1]);
+	motor[port3]=(driv[2]);
+	motor[port4]=(driv[3]);
+}
+
+////////////////////////////////////////////////////////////////////////////////
+//
+//                              Input Manager
+//
+////////////////////////////////////////////////////////////////////////////////
+
+void shooterToggle(){
+	bool toggler = false;
+	if (getButton(/*trigger*/)){
+		toggler=true;
+	}else if (!getButton(/*trigger*/) && !toggler) {
+		toggler = false;
+	}
+	if (toggler){
+		motor[/*shooter motor*/] = //127 || -127
+		motor[/*shooter motor*/] = //127 || -127
+	}
+}
+
+static float getAxisValue(){
+	static float axis[2];
+
+	axis[0] = getJoystickValue(joystick);
+	axis[1] = getJoystickValue(joystick);
+	axis[2] = getJoystickValue(joystick);
+	return axis;
+}
+
 bool getButton(TVexJoysticks button){
 	bool isPressed;
 	if(vexRT[button]==1){
@@ -87,56 +145,4 @@ short getJoystickValue(TVexJoysticks joystick){
 	if(-127<=vexRT[joystick]<=127){//will check for joystick values to be legit, otherwise don't run
 	return vexRT[joystick];
 }
-}
-static float getAxisValue(){
-	static float axis[2];
-
-	axis[0] = getJoystickValue(joystick);
-	axis[1] = getJoystickValue(joystick);
-	axis[2] = getJoystickValue(joystick);
-	return axis;
-}
-//yolo hope this works
-
-float rampITUP(short x[2]){
-	float Y[2]={0,0,0};
-	for(int i=0;i<3;i++){
-	Y[i]=((x[i]^3)/16129)*((x[i])/abs(x[i]));
-}
-	return Y;
-}
-
-
-int driv[3];
-
-void driveMec(double[] driv){
-	finaldrv(driv);
-
-	motor[port1]=(driv[0]);
-	motor[port2]=(driv[1]);
-	motor[port3]=(driv[2]);
-	motor[port4]=(driv[3]);
-}
-=======
-/*bool getButton(int x){
-	return vexRT[x];
-}*/
-
-/*int getJoystickValue(int x){
-	if(true)//will check for joystick values to be legit, otherwise don't run{
-	return vexRT[x];
-}
-}*/
->>>>>>> 2b7aedaf70a6f413fcc66408c484ee1a89346cd3
-
-
-//assumes motor ports
-short[] finaldrv(short driv[]){
-	short drv[3];
-	drv[0] = (driv[0] *.75) - (driv[1]*.75) + (driv[2]);
-	drv[1] = ((driv[0] *.75) + driv[1]*.75 + (driv[2]));
-	drv[2] = -(driv[0] *.75) + (driv[1]*.75) + (driv[2]);
-	drv[3] = (-(driv[0] *.75) - (driv[1]*.75) + (driv[2]));
-
-	return drv;
 }
