@@ -72,6 +72,7 @@ task usercontrol()
 }
 
 //Input Manager
+<<<<<<< HEAD
 bool getButton(TVexJoysticks button){
 	bool isPressed;
 	if(vexRT[button]==1){
@@ -111,6 +112,17 @@ void driveMec(double[] driv){
 	motor[port3]=(drv[2]);
 	motor[port4]=(drv[3]);
 }
+=======
+/*bool getButton(int x){
+	return vexRT[x];
+}*/
+
+/*int getJoystickValue(int x){
+	if(true)//will check for joystick values to be legit, otherwise don't run{
+	return vexRT[x];
+}
+}*/
+>>>>>>> 2b7aedaf70a6f413fcc66408c484ee1a89346cd3
 
 
 //assumes motor ports
