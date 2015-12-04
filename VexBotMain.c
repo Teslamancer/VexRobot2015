@@ -59,7 +59,7 @@ task usercontrol()
 
 	while (true)
 	{
-		driveMec(getAxisValue());
+		driveMec(rampITUP(getAxisValue()));
 	  // This is the main execution loop for the user control program. Each time through the loop
 	  // your program should update motor + servo values based on feedback from the joysticks.
 
@@ -88,8 +88,8 @@ short getJoystickValue(TVexJoysticks joystick){
 	return vexRT[joystick];
 }
 }
-static double[] getAxisValue(){
-	static double[] axis= new double [3];
+static float getAxisValue(){
+	static float axis[2];
 
 	axis[0] = getJoystickValue(joystick);
 	axis[1] = getJoystickValue(joystick);
@@ -97,20 +97,25 @@ static double[] getAxisValue(){
 	return axis;
 }
 //yolo hope this works
-/*
-int rampITUP(short x){
-	short Y=0;
-	Y=((x^3)/16129)*((x)/(short)abs(x));
+
+float rampITUP(short x[2]){
+	float Y[2]={0,0,0};
+	for(int i=0;i<3;i++){
+	Y[i]=((x[i]^3)/16129)*((x[i])/abs(x[i]));
+}
 	return Y;
 }
-*/
+
+
+int driv[3];
+
 void driveMec(double[] driv){
 	finaldrv(driv);
 
-	motor[port1]=(drv[0]);
-	motor[port2]=(drv[1]);
-	motor[port3]=(drv[2]);
-	motor[port4]=(drv[3]);
+	motor[port1]=(driv[0]);
+	motor[port2]=(driv[1]);
+	motor[port3]=(driv[2]);
+	motor[port4]=(driv[3]);
 }
 =======
 /*bool getButton(int x){
@@ -126,8 +131,8 @@ void driveMec(double[] driv){
 
 
 //assumes motor ports
-short[] finaldrv(short[] driv){
-	short[] drv = new short[4];
+short[] finaldrv(short driv[]){
+	short drv[3];
 	drv[0] = (driv[0] *.75) - (driv[1]*.75) + (driv[2]);
 	drv[1] = ((driv[0] *.75) + driv[1]*.75 + (driv[2]));
 	drv[2] = -(driv[0] *.75) + (driv[1]*.75) + (driv[2]);
@@ -135,4 +140,3 @@ short[] finaldrv(short[] driv){
 
 	return drv;
 }
-
