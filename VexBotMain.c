@@ -73,8 +73,8 @@ task usercontrol()
 
 
 float rampITUP(short x[2]){
-	float Y[2]={0,0,0};
-	for(int i=0;i<3;i++){
+	float Y[3]={0,0,0,0};
+	for(int i=0;i<4;i++){
 	Y[i]=((x[i]^3)/16129)*((x[i])/abs(x[i]));
 }
 	return Y;
@@ -94,7 +94,7 @@ short[] finaldrv(short driv[]){
 	return drv;
 }
 
-void driveMec(double[] driv){
+void driveMec(float driv[3]){
 	finaldrv(driv);
 
 	motor[port1]=(driv[0]);
