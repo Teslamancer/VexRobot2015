@@ -15,9 +15,10 @@
 // following function.
 //
 /////////////////////////////////////////////////////////////////////////////////////////
-
+bool toggler;
 void pre_auton()
 {
+	toggler = false;
   // Set bStopTasksBetweenModes to false if you want to keep user created tasks running between
   // Autonomous and Tele-Op modes. You will need to manage all user created tasks if set to false.
   bStopTasksBetweenModes = true;
@@ -60,6 +61,8 @@ task usercontrol()
 	while (true)
 	{
 		driveMec(rampITUP(getAxisValue()));
+		shootEMUP(shooterToggle());
+		elevate(shooterToggle());
 	  // This is the main execution loop for the user control program. Each time through the loop
 	  // your program should update motor + servo values based on feedback from the joysticks.
 
@@ -103,23 +106,33 @@ void driveMec(float driv[3]){
 	motor[port4]=(driv[3]);
 }
 
+void shootEMUP(bool check){
+
+	if (check){
+		motor[/*shooter motor*/] = //127 || -127
+		motor[/*shooter motor*/] = //127 || -127
+	}
+}
+
+void elevate(bool check){
+	if (check){
+		motor[/*elevator motor*/] = //127 || -127
+	}
+}
 ////////////////////////////////////////////////////////////////////////////////
 //
 //                              Input Manager
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-void shooterToggle(){
-	bool toggler = false;
-	if (getButton(/*trigger*/)){
+bool shooterToggle(){
+	bool button = getButton(/*trigger*/);
+	if (button && toggler = false){
 		toggler=true;
-	}else if (!getButton(/*trigger*/) && !toggler) {
+	}else if (button && toggler = true) {
 		toggler = false;
 	}
-	if (toggler){
-		motor[/*shooter motor*/] = //127 || -127
-		motor[/*shooter motor*/] = //127 || -127
-	}
+	return toggler
 }
 
 static float getAxisValue(){
